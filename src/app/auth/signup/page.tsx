@@ -48,7 +48,10 @@ export default function Home() {
     }
 
     try {
-      const response = await postData("/users/signup", userForm);
+      const response = await postData<
+        { name: string; email: string; password: string },
+        { token: string }
+      >("/users/signup", userForm);
       console.log(response);
     } catch (error) {
       console.log(error);

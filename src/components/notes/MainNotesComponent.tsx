@@ -9,7 +9,7 @@ export default function MainNotesComponent() {
   const [notes, setNotes] = useState<Note[]>([]);
 
   const getNotes = async () => {
-    const response = await getData("/notes");
+    const response = await getData<Note[] | []>("/notes");
     console.log(response);
     setNotes(response);
   };
@@ -20,7 +20,7 @@ export default function MainNotesComponent() {
 
   return (
     <div className="flex bg-white w-5xl min-h-3/4 max-h-3/4">
-      <NoteListComponent notes={notes} getNotes={getNotes} />
+      <NoteListComponent notes={notes} />
       <NoteComponent />
     </div>
   );

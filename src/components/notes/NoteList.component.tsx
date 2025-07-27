@@ -2,10 +2,10 @@ import { Note } from "@/types/noteTypes";
 
 export default function NoteListComponent({
   notes,
-  getNotes,
+  // getNotes,
 }: {
   notes: Note[];
-  getNotes: () => void;
+  // getNotes: () => void;
 }) {
   return (
     <div className="">

@@ -33,7 +33,10 @@ export default function Home() {
     }
     console.log(userForm);
     try {
-      const response = await postData("/users/signin", userForm);
+      const response = await postData<{ email: string; password: string }, { token: string }>(
+        "/users/signin",
+        userForm
+      );
       console.log(response);
     } catch (error) {
       const axiosError = error as AxiosError;
