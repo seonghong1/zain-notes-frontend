@@ -34,7 +34,7 @@ export default function Home() {
     console.log(userForm);
     try {
       const response = await postData<{ email: string; password: string }, { token: string }>(
-        "/users/signin",
+        "/auth/login",
         userForm
       );
       console.log(response);
