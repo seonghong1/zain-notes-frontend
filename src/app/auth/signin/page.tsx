@@ -3,7 +3,7 @@ import { postData } from "@/lib/api/httpClient";
 import { AxiosError } from "axios";
 import { useState } from "react";
 
-export default function Home() {
+export default function SignIn() {
   const [userForm, setUserForm] = useState({
     email: "",
     password: "",

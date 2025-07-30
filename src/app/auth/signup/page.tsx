@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { postData } from "@/lib/api/httpClient";
 
-export default function Home() {
+export default function SignUp() {
   const [userForm, setUserForm] = useState({
     name: "",
     email: "",
