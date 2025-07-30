@@ -59,7 +59,7 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center w-full h-full">
       <form action="" className="flex flex-col gap-2" onSubmit={signup}>
         <input type="text" placeholder="name" name="name" onChange={handleChange} />
         <input type="email" placeholder="Email" name="email" onChange={handleChange} />

@@ -2,14 +2,17 @@
 
 :root {
   --background: #f5c842;
+  --sub-background: #ffd968;
   --foreground: #171717;
 }
 
 @theme inline {
+  --color-white: #ffffff;
   --color-background: var(--background);
+  --color-sub-background: var(--sub-background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-noto-sans-kr);
+  --font-geist-sans: var(--font-geist-sans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +25,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-sans-kr), var(--font-geist-sans);
 }

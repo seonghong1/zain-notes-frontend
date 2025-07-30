@@ -2,8 +2,10 @@
 import { postData } from "@/lib/api/httpClient";
 import { AxiosError } from "axios";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignIn() {
+  const router = useRouter();
   const [userForm, setUserForm] = useState({
     email: "",
     password: "",
@@ -47,13 +49,34 @@ export default function SignIn() {
       }
     }
   };
+
+  const goToSignUp = () => {
+    router.push("/auth/signup");
+  };
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center w-full h-full">
       <form action="" className="flex flex-col gap-2" onSubmit={signin}>
-        <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-        <input type="password" placeholder="Password" name="password" onChange={handleChange} />
-        <button type="submit">Sign In</button>
+        <input
+          className="border border-gray-300 rounded-md p-2"
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={handleChange}
+        />
+        <input
+          className="border border-gray-300 rounded-md p-2"
+          type="password"
+          placeholder="Password"
+          name="password"
+          onChange={handleChange}
+        />
+        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">
+          SignIn
+        </button>
       </form>
+      <button className="bg-blue-500 text-white p-2 rounded-md" type="button" onClick={goToSignUp}>
+        SignUp
+      </button>
     </div>
   );
 }
