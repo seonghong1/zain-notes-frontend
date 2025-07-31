@@ -36,7 +36,7 @@ jobs:
           SOURCE_DIR: out # Next.js export 결과물 디렉토리
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
-        with:
+        env:
           distribution: ${{ secrets.CLOUDFRONT_DIST_ID }}
           paths: "/*"
           AWS_REGION: ap-northeast-2
