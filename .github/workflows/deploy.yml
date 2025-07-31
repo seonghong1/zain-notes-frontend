@@ -34,3 +34,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
           SOURCE_DIR: out # Next.js export 결과물 디렉토리
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        with:
+          distribution-id: ${{ secrets.CLOUDFRONT_DIST_ID }}
+          paths: "/*"
+          aws-region: ap-northeast-2
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
