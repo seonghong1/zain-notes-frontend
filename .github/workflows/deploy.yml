@@ -23,7 +23,6 @@ jobs:
       - name: Build static site
         run: |
           npm run build
-          npm run export
 
       - name: Sync to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
