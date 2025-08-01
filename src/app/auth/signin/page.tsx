@@ -70,13 +70,20 @@ export default function SignIn() {
           name="password"
           onChange={handleChange}
         />
-        <button className="bg-blue-500 text-white p-2 rounded-md" type="submit">
-          SignIn
+        <button
+          className="hover:bg-main-dark cursor-pointer bg-main text-white p-2 rounded-md"
+          type="submit"
+        >
+          로그인
+        </button>
+        <button
+          className="mb-1 hover:bg-grey-dark cursor-pointer bg-grey text-white p-2 rounded-md"
+          type="button"
+          onClick={goToSignUp}
+        >
+          회원가입
         </button>
       </form>
-      <button className="bg-blue-500 text-white p-2 rounded-md" type="button" onClick={goToSignUp}>
-        SignUp
-      </button>
     </div>
   );
 }

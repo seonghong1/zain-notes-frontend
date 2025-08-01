@@ -4,7 +4,7 @@ import { postData } from "@/lib/api/httpClient";
 
 export default function SignUp() {
   const [userForm, setUserForm] = useState({
-    name: "",
+    nickname: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -16,8 +16,8 @@ export default function SignUp() {
 
   const validateForm = (): { status: boolean; message: string } => {
     // 이름 작성 검증
-    if (userForm.name === "") {
-      return { status: false, message: "이름을 입력해주세요." };
+    if (userForm.nickname === "") {
+      return { status: false, message: "닉네임을 입력해주세요." };
     }
 
     // 이메일 작성 검증
@@ -49,7 +49,7 @@ export default function SignUp() {
 
     try {
       const response = await postData<
-        { name: string; email: string; password: string },
+        { nickname: string; email: string; password: string },
         { token: string }
       >("/users/signup", userForm);
       console.log(response);
@@ -61,16 +61,40 @@ export default function SignUp() {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
       <form action="" className="flex flex-col gap-2" onSubmit={signup}>
-        <input type="text" placeholder="name" name="name" onChange={handleChange} />
-        <input type="email" placeholder="Email" name="email" onChange={handleChange} />
-        <input type="password" placeholder="Password" name="password" onChange={handleChange} />
         <input
+          className="border border-gray-300 rounded-md p-2"
+          type="text"
+          placeholder="닉네임"
+          name="nickname"
+          onChange={handleChange}
+        />
+        <input
+          className="border border-gray-300 rounded-md p-2"
+          type="email"
+          placeholder="이메일"
+          name="email"
+          onChange={handleChange}
+        />
+        <input
+          className="border border-gray-300 rounded-md p-2"
           type="password"
-          placeholder="Confirm Password"
+          placeholder="비밀번호"
+          name="password"
+          onChange={handleChange}
+        />
+        <input
+          className="border border-gray-300 rounded-md p-2"
+          type="password"
+          placeholder="비밀번호 확인"
           name="confirmPassword"
           onChange={handleChange}
         />
-        <button type="submit">Sign Up</button>
+        <button
+          className="hover:bg-main-dark cursor-pointer bg-main text-white p-2 rounded-md"
+          type="submit"
+        >
+          회원가입
+        </button>
       </form>
     </div>
   );
