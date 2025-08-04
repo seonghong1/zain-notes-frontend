@@ -23,6 +23,8 @@ jobs:
       - name: Build static site
         run: |
           npm run build
+        env:
+          NEXT_PUBLIC_API_BASE_URL: "https://api.zain-notes.com"
 
       - name: Sync to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
