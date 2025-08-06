@@ -31,7 +31,7 @@ body {
   font-family: var(--font-noto-sans-kr), var(--font-geist-sans);
 }
 
-input:focus-within {
+input:not([readonly]):focus-within {
   outline-color: var(--main);
   outline-width: 1px;
   outline-style: solid;
