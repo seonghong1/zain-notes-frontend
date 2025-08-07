@@ -33,13 +33,12 @@ export default function SignIn() {
       alert(message);
       return;
     }
-    console.log(userForm);
     try {
       const response = await postData<{ email: string; password: string }, { token: string }>(
         "/auth/login",
         userForm
       );
-      console.log(response);
+      router.push("/");
     } catch (error) {
       const axiosError = error as AxiosError;
       if (axiosError.response?.data) {

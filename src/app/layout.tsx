@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${notoSansKR.variable} ${geistSans.variable} antialiased w-screen h-screen flex justify-center items-center`}
       >
-        <div className="w-[70%] h-[70%] bg-white rounded-lg p-10">{children}</div>
+        <div className="w-[70%] h-[70%] bg-white rounded-lg p-10 overflow-y-auto">{children}</div>
       </body>
     </html>
   );

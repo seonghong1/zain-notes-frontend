@@ -8,3 +8,14 @@ export const axiosInstance = axios.create({
   },
   withCredentials: true, // 쿠키 포함
 });
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      alert("로그인 후 이용해주세요.");
+      window.location.href = "/auth/signin";
+    }
+    return Promise.reject(error);
+  }
+);

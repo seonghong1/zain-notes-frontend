@@ -5,7 +5,7 @@ export const getData = async <R>(url: string): Promise<R> => {
   return response.data;
 };
 
-export const postData = async <T, R>(url: string, data: T): Promise<R> => {
+export const postData = async <T, R>(url: string, data?: T): Promise<R> => {
   const response = await axiosInstance.post(url, data);
   return response.data;
 };

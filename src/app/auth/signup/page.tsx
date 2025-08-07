@@ -1,9 +1,18 @@
 "use client";
 import { useState } from "react";
 import { postData } from "@/lib/api/httpClient";
+import { useRouter } from "next/navigation";
+
+interface UserForm {
+  nickname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export default function SignUp() {
-  const [userForm, setUserForm] = useState({
+  const router = useRouter();
+  const [userForm, setUserForm] = useState<UserForm>({
     nickname: "",
     email: "",
     password: "",
@@ -48,11 +57,9 @@ export default function SignUp() {
     }
 
     try {
-      const response = await postData<
-        { nickname: string; email: string; password: string },
-        { token: string }
-      >("/users/signup", userForm);
-      console.log(response);
+      await postData<UserForm, { token: string }>("/users/signup", userForm);
+
+      router.push("/auth/signin");
     } catch (error) {
       console.log(error);
     }
