@@ -20,8 +20,15 @@ export default function Todos() {
   const [newTodoId, setNewTodoId] = useState<number | null>(null);
   const inputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
 
-  const fetchTodos = async () => {
-    const res = await getData<Todo[]>("/todos");
+  const fetchTodos = async (selectedDate?: string) => {
+    let url = "/todos";
+    const dateToUse = selectedDate || date;
+
+    if (dateToUse) {
+      url += `?date=${dateToUse}`;
+    }
+
+    const res = await getData<Todo[]>(url);
     setTodos(res);
   };
 
@@ -109,9 +116,29 @@ export default function Todos() {
     }
   };
 
+  const [date, setDate] = useState<string>(() => {
+    const now = new Date();
+    return now.toLocaleDateString("sv-SE"); // YYYY-MM-DD 형식으로 반환
+  });
+
+  const changeDate = (date: string) => {
+    setDate(date);
+    fetchTodos(date);
+  };
+
   return (
     <>
-      <div className="flex justify-end">
+      <div className="flex justify-center">
+        <div className="flex gap-2 items-center">
+          <input
+            className="border-2 border-gray-300 rounded-md p-1"
+            type="date"
+            value={date}
+            onChange={(e) => {
+              changeDate(e.target.value);
+            }}
+          />
+        </div>
         <button
           className="text-3xl mb-3 p-1 cursor-pointer opacity-50 hover:opacity-100"
           onClick={handleCreate}
