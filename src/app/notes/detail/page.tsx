@@ -1,36 +1,39 @@
 "use client";
 import { NoteType } from "@/types/noteTypes";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useCallback, useMemo } from "react";
 import { deleteData, getData, patchData, postData } from "@/lib/api/httpClient";
 import { useRouter } from "next/navigation";
 
-export default function NotesDetail() {
+function NotesDetailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
 
   const [note, setNote] = useState<NoteType | null>(null);
 
-  const defaultNote: NoteType = {
-    id: "",
-    title: "",
-    content: "",
-    createdAt: "",
-    updatedAt: "",
-    deletedAt: "",
-    isDeleted: false,
+  const defaultNote = useMemo(
+    (): NoteType => ({
+      id: "",
+      title: "",
+      content: "",
+      createdAt: "",
+      updatedAt: "",
+      deletedAt: "",
+      isDeleted: false,
+      isEditing: true,
+    }),
+    [],
+  );
 
-    isEditing: true,
-  };
-
-  const fetchNote = async () => {
+  const fetchNote = useCallback(async () => {
+    if (!id) return;
     const res = await getData<NoteType>(`/notes/${id}`);
     console.log(res);
 
     res.isEditing = false;
     setNote(res);
-  };
+  }, [id]);
 
   useEffect(() => {
     if (!id) {
@@ -39,7 +42,7 @@ export default function NotesDetail() {
     }
 
     fetchNote();
-  }, [id]);
+  }, [id, fetchNote]);
 
   const handleEdit = () => {
     if (!note) return;
@@ -69,8 +72,7 @@ export default function NotesDetail() {
   const handleDelete = async () => {
     if (!note) return;
     try {
-      const res = await deleteData<NoteType>(`/notes/${note.id}`);
-
+      await deleteData<NoteType>(`/notes/${note.id}`);
       router.push("/notes");
     } catch (error) {
       console.error(error);
@@ -88,58 +90,64 @@ export default function NotesDetail() {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="flex h-full w-full flex-col items-center gap-2">
-        <input
-          className={`w-3/4 cursor-default rounded-md p-2 outline-none ${
-            note?.isEditing
-              ? "cursor-text border-2 border-gray-300"
-              : "cursor-default"
-          } `}
-          type="text"
-          value={note?.title || ""}
-          readOnly={!note?.isEditing}
-          onChange={changeTitle}
-        />
-        <textarea
-          className="h-full w-3/4 cursor-default resize-none overflow-y-auto rounded-md border-2 border-gray-300 p-2 outline-none"
-          value={note?.content || ""}
-          readOnly={!note?.isEditing}
-          onChange={changeContent}
-        />
+    <div className="flex h-full w-full flex-col items-center gap-2">
+      <input
+        className={`w-3/4 cursor-default rounded-md p-2 outline-none ${
+          note?.isEditing
+            ? "cursor-text border-2 border-gray-300"
+            : "cursor-default"
+        } `}
+        type="text"
+        value={note?.title || ""}
+        readOnly={!note?.isEditing}
+        onChange={changeTitle}
+      />
+      <textarea
+        className="h-full w-3/4 cursor-default resize-none overflow-y-auto rounded-md border-2 border-gray-300 p-2 outline-none"
+        value={note?.content || ""}
+        readOnly={!note?.isEditing}
+        onChange={changeContent}
+      />
 
-        <div className="flex gap-2">
-          {note?.isEditing ? (
-            <>
-              <button
-                className="bg-main rounded-md p-2 text-white"
-                onClick={() => handleSave()}
-              >
-                저장
-              </button>
-              <button
-                className="bg-main rounded-md p-2 text-white"
-                onClick={() => handleCancel()}
-              >
-                취소
-              </button>
-            </>
-          ) : (
+      <div className="flex gap-2">
+        {note?.isEditing ? (
+          <>
             <button
               className="bg-main rounded-md p-2 text-white"
-              onClick={() => handleEdit()}
+              onClick={() => handleSave()}
             >
-              수정
+              저장
             </button>
-          )}
+            <button
+              className="bg-main rounded-md p-2 text-white"
+              onClick={() => handleCancel()}
+            >
+              취소
+            </button>
+          </>
+        ) : (
           <button
             className="bg-main rounded-md p-2 text-white"
-            onClick={() => handleDelete()}
+            onClick={() => handleEdit()}
           >
-            삭제
+            수정
           </button>
-        </div>
+        )}
+        <button
+          className="bg-main rounded-md p-2 text-white"
+          onClick={() => handleDelete()}
+        >
+          삭제
+        </button>
       </div>
+    </div>
+  );
+}
+
+export default function NotesDetail() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NotesDetailContent />
     </Suspense>
   );
 }
