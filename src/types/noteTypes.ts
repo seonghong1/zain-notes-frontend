@@ -1,18 +1,11 @@
-export interface Note {
+export interface NoteType {
   id: string;
   title: string;
   content: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export type TodoType = {
-  id: number;
-  userId: number;
-  description?: string;
-  isDone: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date;
+  deletedAt: string;
   isDeleted: boolean;
-};
+
+  isEditing?: boolean;
+}

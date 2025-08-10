@@ -3,19 +3,20 @@
 import { useState, useCallback } from "react";
 import { getCurrentDate, getPreviousDate, getNextDate, isToday } from "@/lib/utils/date";
 
-interface TodoDateProps {
-  fetchTodos: (date: string) => void;
+interface DateFilterProps<T> {
+  serchCondition: T;
+  setSerchCondition: (condition: T) => void;
 }
 
-export default function TodoDate({ fetchTodos }: TodoDateProps) {
+export default function DateFilter<T>({ serchCondition, setSerchCondition }: DateFilterProps<T>) {
   const [date, setDate] = useState<string>(getCurrentDate);
 
   const handleDateChange = useCallback(
     (newDate: string) => {
       setDate(newDate);
-      fetchTodos(newDate);
+      setSerchCondition({ ...serchCondition, date: newDate });
     },
-    [fetchTodos]
+    [serchCondition, setSerchCondition]
   );
 
   const handlePreviousDate = useCallback(() => {
