@@ -1,7 +1,7 @@
 "use client";
 import { NoteType } from "@/types/noteTypes";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { deleteData, getData, patchData, postData } from "@/lib/api/httpClient";
 import { useRouter } from "next/navigation";
 
@@ -88,56 +88,58 @@ export default function NotesDetail() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-2">
-      <input
-        className={`w-3/4 cursor-default rounded-md p-2 outline-none ${
-          note?.isEditing
-            ? "cursor-text border-2 border-gray-300"
-            : "cursor-default"
-        } `}
-        type="text"
-        value={note?.title || ""}
-        readOnly={!note?.isEditing}
-        onChange={changeTitle}
-      />
-      <textarea
-        className="h-full w-3/4 cursor-default resize-none overflow-y-auto rounded-md border-2 border-gray-300 p-2 outline-none"
-        value={note?.content || ""}
-        readOnly={!note?.isEditing}
-        onChange={changeContent}
-      />
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex h-full w-full flex-col items-center gap-2">
+        <input
+          className={`w-3/4 cursor-default rounded-md p-2 outline-none ${
+            note?.isEditing
+              ? "cursor-text border-2 border-gray-300"
+              : "cursor-default"
+          } `}
+          type="text"
+          value={note?.title || ""}
+          readOnly={!note?.isEditing}
+          onChange={changeTitle}
+        />
+        <textarea
+          className="h-full w-3/4 cursor-default resize-none overflow-y-auto rounded-md border-2 border-gray-300 p-2 outline-none"
+          value={note?.content || ""}
+          readOnly={!note?.isEditing}
+          onChange={changeContent}
+        />
 
-      <div className="flex gap-2">
-        {note?.isEditing ? (
-          <>
+        <div className="flex gap-2">
+          {note?.isEditing ? (
+            <>
+              <button
+                className="bg-main rounded-md p-2 text-white"
+                onClick={() => handleSave()}
+              >
+                저장
+              </button>
+              <button
+                className="bg-main rounded-md p-2 text-white"
+                onClick={() => handleCancel()}
+              >
+                취소
+              </button>
+            </>
+          ) : (
             <button
               className="bg-main rounded-md p-2 text-white"
-              onClick={() => handleSave()}
+              onClick={() => handleEdit()}
             >
-              저장
+              수정
             </button>
-            <button
-              className="bg-main rounded-md p-2 text-white"
-              onClick={() => handleCancel()}
-            >
-              취소
-            </button>
-          </>
-        ) : (
+          )}
           <button
             className="bg-main rounded-md p-2 text-white"
-            onClick={() => handleEdit()}
+            onClick={() => handleDelete()}
           >
-            수정
+            삭제
           </button>
-        )}
-        <button
-          className="bg-main rounded-md p-2 text-white"
-          onClick={() => handleDelete()}
-        >
-          삭제
-        </button>
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
