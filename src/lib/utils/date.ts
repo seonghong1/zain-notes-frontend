@@ -31,7 +31,10 @@ export function isValidDate(dateString: string): boolean {
 }
 
 // 두 날짜를 비교하여 같은 날짜인지 확인
-export function isSameDate(date1: Date | string, date2: Date | string): boolean {
+export function isSameDate(
+  date1: Date | string,
+  date2: Date | string,
+): boolean {
   const d1 = typeof date1 === "string" ? parseDateFromYYYYMMDD(date1) : date1;
   const d2 = typeof date2 === "string" ? parseDateFromYYYYMMDD(date2) : date2;
 
@@ -58,4 +61,32 @@ export function getPreviousDate(date: Date | string): string {
 // 다음 날짜 가져오기
 export function getNextDate(date: Date | string): string {
   return addDays(date, 1);
+}
+
+// UTC 시간을 로컬 타임존 기준 yyyy-mm-dd hh:mm:ss 형식으로 변환
+export function formatUTCDateToLocal(utcString: string): string {
+  const date = new Date(utcString);
+
+  // 시스템/브라우저의 로컬 타임존 기준으로 변환
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+// UTC 시간을 로컬 타임존 기준 yyyy-mm-dd hh:mm 형식으로 변환 (초 제외)
+export function formatUTCDateToLocalShort(utcString: string): string {
+  const date = new Date(utcString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${year}-${month}-${day} ${hours}:${minutes}`;
 }

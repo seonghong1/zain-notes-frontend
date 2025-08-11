@@ -2,7 +2,7 @@
 import DateFilter from "../components/searchFilters/DateFilter";
 import { useEffect, useState } from "react";
 import { getData } from "@/lib/api/httpClient";
-import { getCurrentDate } from "@/lib/utils/date";
+import { getCurrentDate, formatUTCDateToLocal } from "@/lib/utils/date";
 import TextFilter from "../components/searchFilters/TextFilter";
 import { useRouter } from "next/navigation";
 
@@ -16,11 +16,10 @@ interface Note {
   userId?: number;
   title: string;
   content: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string;
   isDeleted?: boolean;
-  convertedCreatedAt?: string;
 }
 
 export default function Notes() {
@@ -93,7 +92,7 @@ export default function Notes() {
           <div key={note.id} onClick={() => goToDetail(note.id)}>
             <div>{note.title}</div>
             <div>{note.content}</div>
-            <div>{note.convertedCreatedAt}</div>
+            <div>{formatUTCDateToLocal(note.createdAt ?? "")}</div>
           </div>
         ))}
       </div>
