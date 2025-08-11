@@ -34,7 +34,7 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     let url = "/notes";
-    url += `?date=${serchCondition.date}`;
+    url += `?date=${new Date(serchCondition.date).toISOString()}`;
     url += `&title=${serchCondition.title}`;
     const res = await getData<Note[]>(url);
     setNotes(res);
