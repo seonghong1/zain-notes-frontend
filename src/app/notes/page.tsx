@@ -34,13 +34,7 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     let url = "/notes";
-    // 로컬 날짜를 UTC 기준으로 정확하게 변환
-    const localDate = new Date(serchCondition.date + "T00:00:00");
-    const utcDate = new Date(
-      localDate.getTime() - localDate.getTimezoneOffset() * 60000,
-    );
-
-    url += `?date=${utcDate.toISOString()}`;
+    url += `?date=${serchCondition.date}`;
     url += `&title=${serchCondition.title}`;
     const res = await getData<Note[]>(url);
     setNotes(res);
