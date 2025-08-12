@@ -38,7 +38,7 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     let url = "/notes";
-    url += `?date=${convertLocalDateToUTC(serchCondition.date)}`;
+    url += `?date=${new Date(serchCondition.date).getTime()}`;
     url += `&title=${serchCondition.title}`;
     const res = await getData<Note[]>(url);
     setNotes(res);
