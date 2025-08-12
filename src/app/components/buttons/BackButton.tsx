@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
 
 export default function BackButton() {
   const router = useRouter();
@@ -21,10 +22,10 @@ export default function BackButton() {
 
   return (
     <button
-      className="bg-main absolute top-5 left-5 cursor-pointer rounded-md p-2 text-white opacity-50 hover:opacity-100"
+      className="bg-main absolute top-5 left-5 cursor-pointer rounded-md p-1 text-3xl text-white opacity-70 hover:opacity-100"
       onClick={goToBack}
     >
-      👈
+      <IoMdArrowBack />
     </button>
   );
 }

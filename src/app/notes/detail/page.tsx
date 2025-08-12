@@ -92,10 +92,10 @@ function NotesDetailContent() {
   return (
     <div className="flex h-full w-full flex-col items-center gap-2">
       <input
-        className={`w-3/4 cursor-default rounded-md p-2 outline-none ${
+        className={`w-3/4 cursor-default p-2 text-2xl outline-none ${
           note?.isEditing
-            ? "cursor-text border-2 border-gray-300"
-            : "cursor-default"
+            ? "cursor-text rounded-md border-2 border-gray-300"
+            : "cursor-default border-b-2 border-gray-300"
         } `}
         type="text"
         value={note?.title || ""}
@@ -103,7 +103,11 @@ function NotesDetailContent() {
         onChange={changeTitle}
       />
       <textarea
-        className="h-full w-3/4 cursor-default resize-none overflow-y-auto rounded-md border-2 border-gray-300 p-2 outline-none"
+        className={`h-full w-3/4 cursor-default resize-none overflow-y-auto rounded-md p-2 outline-none ${
+          note?.isEditing
+            ? "cursor-text border-2 border-gray-300"
+            : "cursor-default"
+        }`}
         value={note?.content || ""}
         readOnly={!note?.isEditing}
         onChange={changeContent}

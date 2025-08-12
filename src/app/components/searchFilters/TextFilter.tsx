@@ -1,4 +1,5 @@
 "use client";
+import { HiOutlineSearch } from "@react-icons/all-files/hi/HiOutlineSearch";
 
 interface TextFilterProps<T> {
   filterKey: keyof T;
@@ -12,12 +13,15 @@ export default function TextFilter<T>({
   setSerchCondition,
 }: TextFilterProps<T>) {
   return (
-    <div className="flex gap-2 items-center justify-center w-full">
+    <div className="relative flex w-full items-center justify-center gap-2">
+      <HiOutlineSearch className="absolute top-1/2 left-2 -translate-y-1/2 text-2xl text-gray-500" />
       <input
-        className="p-2 w-3/4 border-2 rounded-md p-1 outline-none border-gray-300 hover:border-main"
+        className="hover:border-main w-full rounded-md border-2 border-gray-300 p-1 pl-8 outline-none"
         type="text"
         value={(serchCondition[filterKey] as string) || ""}
-        onChange={(e) => setSerchCondition({ ...serchCondition, [filterKey]: e.target.value })}
+        onChange={(e) =>
+          setSerchCondition({ ...serchCondition, [filterKey]: e.target.value })
+        }
       />
     </div>
   );

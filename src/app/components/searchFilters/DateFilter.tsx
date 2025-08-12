@@ -1,14 +1,25 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { getCurrentDate, getPreviousDate, getNextDate, isToday } from "@/lib/utils/date";
+import {
+  getCurrentDate,
+  getPreviousDate,
+  getNextDate,
+  isToday,
+} from "@/lib/utils/date";
+
+import { IoCaretBack } from "@react-icons/all-files/io5/IoCaretBack";
+import { IoCaretForward } from "@react-icons/all-files/io5/IoCaretForward";
 
 interface DateFilterProps<T> {
   serchCondition: T;
   setSerchCondition: (condition: T) => void;
 }
 
-export default function DateFilter<T>({ serchCondition, setSerchCondition }: DateFilterProps<T>) {
+export default function DateFilter<T>({
+  serchCondition,
+  setSerchCondition,
+}: DateFilterProps<T>) {
   const [date, setDate] = useState<string>(getCurrentDate);
 
   const handleDateChange = useCallback(
@@ -16,7 +27,7 @@ export default function DateFilter<T>({ serchCondition, setSerchCondition }: Dat
       setDate(newDate);
       setSerchCondition({ ...serchCondition, date: newDate });
     },
-    [serchCondition, setSerchCondition]
+    [serchCondition, setSerchCondition],
   );
 
   const handlePreviousDate = useCallback(() => {
@@ -30,22 +41,22 @@ export default function DateFilter<T>({ serchCondition, setSerchCondition }: Dat
   }, [date, handleDateChange]);
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="mt-2 flex items-center gap-2">
       <button
         onClick={handlePreviousDate}
-        className="text-3xl cursor-pointer px-2 py-1 rounded-md hover:bg-gray-100 transition-colors"
+        className="cursor-pointer rounded-md bg-gray-100 px-2 py-1 text-3xl transition-colors hover:bg-gray-200"
         aria-label="이전 날짜"
       >
-        ⬅️
+        <IoCaretBack />
       </button>
       <div className="relative">
         {isToday(date) && (
-          <p className="text-sm absolute top-0 left-1/2 -translate-y-full -translate-x-1/2">
+          <p className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+3px)] cursor-default rounded-md bg-blue-500 px-2 py-1 text-sm text-white">
             Today
           </p>
         )}
         <input
-          className="border-2 border-gray-300 rounded-md p-1 focus:border-blue-500 focus:outline-none"
+          className="rounded-md border-2 border-gray-300 p-1 focus:border-blue-500 focus:outline-none"
           type="date"
           value={date}
           onChange={(e) => handleDateChange(e.target.value)}
@@ -54,10 +65,10 @@ export default function DateFilter<T>({ serchCondition, setSerchCondition }: Dat
 
       <button
         onClick={handleNextDate}
-        className="text-3xl cursor-pointer px-2 py-1 rounded-md hover:bg-gray-100 transition-colors"
+        className="cursor-pointer rounded-md bg-gray-100 px-2 py-1 text-3xl transition-colors hover:bg-gray-200"
         aria-label="다음 날짜"
       >
-        ➡️
+        <IoCaretForward />
       </button>
     </div>
   );
