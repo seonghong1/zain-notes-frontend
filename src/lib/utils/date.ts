@@ -90,3 +90,22 @@ export function formatUTCDateToLocalShort(utcString: string): string {
 
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
+
+// 로컬 날짜를 UTC 시간으로 변환 (서버 전송용)
+export function convertLocalDateToUTC(dateString: string): number {
+  // YYYY-MM-DD 형식의 문자열을 파싱
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  // 로컬 시간대 기준으로 Date 객체 생성 (00:00:00)
+  const localDate = new Date(year, month - 1, day, 0, 0, 0, 0);
+
+  // UTC 시간으로 변환하여 타임스탬프 반환
+  return localDate.getTime();
+}
+
+// 로컬 날짜를 UTC 날짜 문자열로 변환 (YYYY-MM-DDTHH:mm:ss.sssZ 형식)
+export function convertLocalDateToUTCString(dateString: string): string {
+  const [year, month, day] = dateString.split("-").map(Number);
+  const localDate = new Date(year, month - 1, day, 0, 0, 0, 0);
+  return localDate.toISOString();
+}

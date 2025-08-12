@@ -2,7 +2,11 @@
 import DateFilter from "../components/searchFilters/DateFilter";
 import { useEffect, useState } from "react";
 import { getData } from "@/lib/api/httpClient";
-import { getCurrentDate, formatUTCDateToLocal } from "@/lib/utils/date";
+import {
+  getCurrentDate,
+  formatUTCDateToLocal,
+  convertLocalDateToUTC,
+} from "@/lib/utils/date";
 import TextFilter from "../components/searchFilters/TextFilter";
 import { useRouter } from "next/navigation";
 
@@ -34,7 +38,7 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     let url = "/notes";
-    url += `?date=${serchCondition.date}`;
+    url += `?date=${convertLocalDateToUTC(serchCondition.date)}`;
     url += `&title=${serchCondition.title}`;
     const res = await getData<Note[]>(url);
     setNotes(res);
