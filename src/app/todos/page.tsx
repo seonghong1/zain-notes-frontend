@@ -5,6 +5,7 @@ import DateFilter from "../components/searchFilters/DateFilter";
 import Todo from "./components/Todo";
 import { getCurrentDate } from "@/lib/utils/date";
 import { TodoType } from "@/types/todoTypes";
+import { IoMdAdd } from "@react-icons/all-files/io/IoMdAdd";
 
 interface SearchCondition {
   date: string;
@@ -21,7 +22,7 @@ export default function Todos() {
   const fetchTodos = async () => {
     let url = "/todos";
 
-    url += `?date=${serchCondition.date}`;
+    url += `?date=${new Date(serchCondition.date).getTime()}`;
     const res = await getData<TodoType[]>(url);
     setTodos(res);
   };
@@ -116,31 +117,33 @@ export default function Todos() {
 
   return (
     <>
-      <div className="flex items-center justify-center">
-        <DateFilter<SearchCondition>
-          serchCondition={serchCondition}
-          setSerchCondition={setSerchCondition}
-        />
-        <button
-          className="cursor-pointer p-1 text-3xl opacity-50 hover:opacity-100"
-          onClick={handleCreate}
-        >
-          🆕
-        </button>
-      </div>
-      <div className="flex h-full w-full flex-col gap-3">
-        {todos.map((todo) => (
-          <Todo
-            key={`${todo.id}-${todo.userId || "new"}`}
-            todo={todo}
-            onSetContent={handleSetContent}
-            onEdit={handleEdit}
-            onUpdate={handleUpdate}
-            onDone={handleDone}
-            onDelete={handleDelete}
-            isNewTodo={todo.id === newTodoId}
+      <button
+        className="bg-main absolute right-5 bottom-5 cursor-pointer rounded-full p-2 text-3xl text-white opacity-80 hover:opacity-100"
+        onClick={handleCreate}
+      >
+        <IoMdAdd />
+      </button>
+      <div className="flex h-full w-full flex-col gap-3 overflow-y-auto">
+        <div className="flex items-center justify-center">
+          <DateFilter<SearchCondition>
+            serchCondition={serchCondition}
+            setSerchCondition={setSerchCondition}
           />
-        ))}
+        </div>
+        <div className="flex h-full w-full flex-col gap-3">
+          {todos.map((todo) => (
+            <Todo
+              key={`${todo.id}-${todo.userId || "new"}`}
+              todo={todo}
+              onSetContent={handleSetContent}
+              onEdit={handleEdit}
+              onUpdate={handleUpdate}
+              onDone={handleDone}
+              onDelete={handleDelete}
+              isNewTodo={todo.id === newTodoId}
+            />
+          ))}
+        </div>
       </div>
     </>
   );

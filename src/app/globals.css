@@ -23,6 +23,12 @@
 
   --font-sans: var(--font-noto-sans-kr);
   --font-geist-sans: var(--font-geist-sans);
+
+  --color-new: var(--main);
+  --color-edit: var(--color-gray-500);
+  --color-delete: var(--color-red-500);
+  --color-save: var(--color-blue-500);
+  --color-done: var(--color-green-500);
 }
 
 body {

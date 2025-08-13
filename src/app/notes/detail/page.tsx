@@ -5,6 +5,10 @@ import { Suspense, useEffect, useState, useCallback, useMemo } from "react";
 import { deleteData, getData, patchData, postData } from "@/lib/api/httpClient";
 import { useRouter } from "next/navigation";
 
+import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
+import { FaTrash } from "@react-icons/all-files/fa/FaTrash";
+import { FaSave } from "@react-icons/all-files/fa/FaSave";
+
 function NotesDetailContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -115,33 +119,25 @@ function NotesDetailContent() {
 
       <div className="flex gap-2">
         {note?.isEditing ? (
-          <>
-            <button
-              className="bg-main rounded-md p-2 text-white"
-              onClick={() => handleSave()}
-            >
-              저장
-            </button>
-            <button
-              className="bg-main rounded-md p-2 text-white"
-              onClick={() => handleCancel()}
-            >
-              취소
-            </button>
-          </>
+          <button
+            className="cursor-pointer rounded-md bg-[var(--color-save)] px-4 py-3 text-xl text-white opacity-70 hover:opacity-100"
+            onClick={() => handleSave()}
+          >
+            <FaSave />
+          </button>
         ) : (
           <button
-            className="bg-main rounded-md p-2 text-white"
+            className="cursor-pointer rounded-md bg-[var(--color-edit)] px-4 py-3 text-xl text-white opacity-70 hover:opacity-100"
             onClick={() => handleEdit()}
           >
-            수정
+            <FaEdit />
           </button>
         )}
         <button
-          className="bg-main rounded-md p-2 text-white"
+          className="cursor-pointer rounded-md bg-[var(--color-delete)] px-4 py-3 text-xl text-white opacity-70 hover:opacity-100"
           onClick={() => handleDelete()}
         >
-          삭제
+          <FaTrash />
         </button>
       </div>
     </div>

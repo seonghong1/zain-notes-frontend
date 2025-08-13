@@ -10,6 +10,7 @@ import {
 
 import { IoCaretBack } from "@react-icons/all-files/io5/IoCaretBack";
 import { IoCaretForward } from "@react-icons/all-files/io5/IoCaretForward";
+import { FiSun } from "@react-icons/all-files/fi/FiSun";
 
 interface DateFilterProps<T> {
   serchCondition: T;
@@ -50,13 +51,8 @@ export default function DateFilter<T>({
         <IoCaretBack />
       </button>
       <div className="relative">
-        {isToday(date) && (
-          <p className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[calc(100%+3px)] cursor-default rounded-md bg-blue-500 px-2 py-1 text-sm text-white">
-            Today
-          </p>
-        )}
         <input
-          className="rounded-md border-2 border-gray-300 p-1 focus:border-blue-500 focus:outline-none"
+          className={`rounded-md border-2 border-gray-300 p-1 focus:outline-none`}
           type="date"
           value={date}
           onChange={(e) => handleDateChange(e.target.value)}

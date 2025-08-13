@@ -29,9 +29,9 @@ export default function RootLayout({
     <html lang="ko">
       <Head />
       <body
-        className={`${notoSansKR.variable} ${geistSans.variable} antialiased w-screen h-screen flex justify-center items-center`}
+        className={`${notoSansKR.variable} ${geistSans.variable} flex h-screen w-screen items-center justify-center antialiased`}
       >
-        <div className="relative w-[70%] h-[70%] bg-white rounded-lg p-10 overflow-y-auto">
+        <div className="relative h-[70%] w-[70%] rounded-lg bg-white p-10">
           {pathname !== "/" && pathname !== "/auth/signin/" && <BackButton />}
           {children}
         </div>

@@ -2,6 +2,11 @@
 import { useRef, useEffect } from "react";
 import { TodoType } from "@/types/todoTypes";
 
+import { FaCheck } from "@react-icons/all-files/fa/FaCheck";
+import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
+import { FaTrash } from "@react-icons/all-files/fa/FaTrash";
+import { FaSave } from "@react-icons/all-files/fa/FaSave";
+
 interface TodoProps {
   todo: TodoType;
   onSetContent: (id: number, content: string) => void;
@@ -31,20 +36,21 @@ export default function Todo({
   }, [isNewTodo]);
 
   return (
-    <div className="flex gap-2 items-center justify-center">
+    <div className="flex items-center justify-center gap-2">
       <button
-        className={`text-2xl cursor-pointer p-2 hover:opacity-100
-        ${todo.isDone ? "opacity-100" : "opacity-50"}`}
+        className={`cursor-pointer p-2 text-2xl text-[var(--color-done)] hover:opacity-100 ${todo.isDone ? "opacity-100" : "opacity-50"}`}
         onClick={() => onDone(todo.id, todo)}
       >
-        ✅
+        <FaCheck />
       </button>
       <div className="w-full">
         <input
           ref={inputRef}
           readOnly={!todo.isEditing}
-          className={`p-2 w-full border-2 rounded-md p-1 outline-none ${
-            todo.isEditing ? "cursor-text border-main" : "cursor-default border-gray-300"
+          className={`w-full rounded-md border-2 p-1 p-2 outline-none ${
+            todo.isEditing
+              ? "border-main cursor-text"
+              : "cursor-default border-gray-300"
           }`}
           type="text"
           value={todo.content || ""}
@@ -53,8 +59,10 @@ export default function Todo({
       </div>
       <div className={`flex gap-2`}>
         <button
-          className={`text-2xl cursor-pointer p-1 hover:opacity-100 ${
-            todo.isEditing ? "opacity-100" : "opacity-50"
+          className={`cursor-pointer p-1 text-2xl hover:opacity-100 ${
+            todo.isEditing
+              ? "text-[var(--color-save)] opacity-50"
+              : "text-[var(--color-edit)] opacity-50"
           }`}
           onClick={() => {
             if (todo.isEditing) {
@@ -64,13 +72,13 @@ export default function Todo({
             }
           }}
         >
-          {todo.isEditing ? "💾" : "✏️"}
+          {todo.isEditing ? <FaSave /> : <FaEdit />}
         </button>
         <button
-          className={`text-2xl cursor-pointer p-1 opacity-50 hover:opacity-100`}
+          className={`cursor-pointer p-1 text-2xl text-[var(--color-delete)] opacity-50 hover:opacity-100`}
           onClick={() => onDelete(todo.id)}
         >
-          🗑️
+          <FaTrash />
         </button>
       </div>
     </div>

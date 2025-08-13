@@ -40,7 +40,7 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     let url = "/notes";
-    url += `?date=${new Date(serchCondition.date).getTime() - 9 * 60 * 60 * 1000}`;
+    url += `?date=${new Date(serchCondition.date).getTime()}`;
     url += `&title=${serchCondition.title}`;
     const res = await getData<Note[]>(url);
     setNotes(res);
@@ -82,31 +82,33 @@ export default function Notes() {
       >
         <IoMdAdd />
       </button>
-      <div className="mb-5 flex flex-col items-center justify-center gap-2">
-        <DateFilter<SearchCondition>
-          serchCondition={serchCondition}
-          setSerchCondition={setSerchCondition}
-        />
-        <TextFilter<SearchCondition>
-          filterKey="title"
-          serchCondition={serchCondition}
-          setSerchCondition={setSerchCondition}
-        />
-      </div>
       <div className="flex h-full w-full flex-col gap-3 overflow-y-auto">
-        {filteredNotes.map((note) => (
-          <div
-            key={note.id}
-            onClick={() => goToDetail(note.id)}
-            className="cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-gray-200"
-          >
-            <div className="text-lg font-bold">{note.title}</div>
-            <div className="text-s text-gray-600">{note.content}</div>
-            <div className="text-xs text-gray-400">
-              {formatUTCDateToLocal(note.createdAt ?? "")}
+        <div className="flex flex-col items-center justify-center gap-2">
+          <DateFilter<SearchCondition>
+            serchCondition={serchCondition}
+            setSerchCondition={setSerchCondition}
+          />
+          <TextFilter<SearchCondition>
+            filterKey="title"
+            serchCondition={serchCondition}
+            setSerchCondition={setSerchCondition}
+          />
+        </div>
+        <div className="flex w-full flex-col gap-3">
+          {filteredNotes.map((note) => (
+            <div
+              key={note.id}
+              onClick={() => goToDetail(note.id)}
+              className="cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-gray-200"
+            >
+              <div className="text-lg font-bold">{note.title}</div>
+              <div className="text-s text-gray-600">{note.content}</div>
+              <div className="text-xs text-gray-400">
+                {formatUTCDateToLocal(note.createdAt ?? "")}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </>
   );
