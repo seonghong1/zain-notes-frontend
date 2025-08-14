@@ -11,6 +11,37 @@ export function getCurrentDate(): string {
   return `${year}-${month}-${day}`;
 }
 
+// 현재 타임존 기준으로 특정 날짜의 시작일(00:00:00)을 UTC로 변환
+export function getStartOfDayUTC(dateString: string): string {
+  // YYYY-MM-DD 형식의 문자열을 현재 타임존 기준 Date 객체로 생성
+  const [year, month, day] = dateString.split("-").map(Number);
+  const localDate = new Date(year, month - 1, day, 0, 0, 0, 0);
+
+  // UTC로 변환 (ISO 문자열로 변환하면 자동으로 UTC로 변환됨)
+  return localDate.toISOString();
+}
+
+// 현재 타임존 기준으로 특정 날짜의 종료일(23:59:59.999)을 UTC로 변환
+export function getEndOfDayUTC(dateString: string): string {
+  // YYYY-MM-DD 형식의 문자열을 현재 타임존 기준 Date 객체로 생성
+  const [year, month, day] = dateString.split("-").map(Number);
+  const localDate = new Date(year, month - 1, day, 23, 59, 59, 999);
+
+  // UTC로 변환
+  return localDate.toISOString();
+}
+
+// 현재 타임존 기준으로 특정 날짜의 시작일과 종료일을 UTC로 변환하여 객체로 반환
+export function getDayRangeUTC(dateString: string): {
+  start: string;
+  end: string;
+} {
+  return {
+    start: getStartOfDayUTC(dateString),
+    end: getEndOfDayUTC(dateString),
+  };
+}
+
 // Date 객체를 YYYY-MM-DD 형식으로 변환
 export function formatDateToYYYYMMDD(date: Date): string {
   const year = date.getFullYear();
@@ -22,28 +53,6 @@ export function formatDateToYYYYMMDD(date: Date): string {
 // YYYY-MM-DD 형식의 문자열을 Date 객체로 변환
 export function parseDateFromYYYYMMDD(dateString: string): Date {
   return new Date(dateString);
-}
-
-// 날짜가 유효한지 확인
-export function isValidDate(dateString: string): boolean {
-  const date = new Date(dateString);
-  return date instanceof Date && !isNaN(date.getTime());
-}
-
-// 두 날짜를 비교하여 같은 날짜인지 확인
-export function isSameDate(
-  date1: Date | string,
-  date2: Date | string,
-): boolean {
-  const d1 = typeof date1 === "string" ? parseDateFromYYYYMMDD(date1) : date1;
-  const d2 = typeof date2 === "string" ? parseDateFromYYYYMMDD(date2) : date2;
-
-  return formatDateToYYYYMMDD(d1) === formatDateToYYYYMMDD(d2);
-}
-
-// 오늘 날짜인지 확인
-export function isToday(date: Date | string): boolean {
-  return isSameDate(date, getCurrentDate());
 }
 
 // 특정 날짜에서 일수를 더하거나 빼기
@@ -76,36 +85,4 @@ export function formatUTCDateToLocal(utcString: string): string {
   const seconds = String(date.getSeconds()).padStart(2, "0");
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-}
-
-// UTC 시간을 로컬 타임존 기준 yyyy-mm-dd hh:mm 형식으로 변환 (초 제외)
-export function formatUTCDateToLocalShort(utcString: string): string {
-  const date = new Date(utcString);
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
-
-  return `${year}-${month}-${day} ${hours}:${minutes}`;
-}
-
-// 로컬 날짜를 UTC 시간으로 변환 (서버 전송용)
-export function convertLocalDateToUTC(dateString: string): number {
-  // YYYY-MM-DD 형식의 문자열을 파싱
-  const [year, month, day] = dateString.split("-").map(Number);
-
-  // 로컬 시간대 기준으로 Date 객체 생성 (00:00:00)
-  const localDate = new Date(year, month - 1, day, 0, 0, 0, 0);
-
-  // UTC 시간으로 변환하여 타임스탬프 반환
-  return localDate.getTime();
-}
-
-// 로컬 날짜를 UTC 날짜 문자열로 변환 (YYYY-MM-DDTHH:mm:ss.sssZ 형식)
-export function convertLocalDateToUTCString(dateString: string): string {
-  const [year, month, day] = dateString.split("-").map(Number);
-  const localDate = new Date(year, month - 1, day, 0, 0, 0, 0);
-  return localDate.toISOString();
 }
