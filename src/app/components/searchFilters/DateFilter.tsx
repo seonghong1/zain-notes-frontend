@@ -1,16 +1,10 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import {
-  getCurrentDate,
-  getPreviousDate,
-  getNextDate,
-  isToday,
-} from "@/lib/utils/date";
+import { getCurrentDate, getPreviousDate, getNextDate } from "@/lib/utils/date";
 
 import { IoCaretBack } from "@react-icons/all-files/io5/IoCaretBack";
 import { IoCaretForward } from "@react-icons/all-files/io5/IoCaretForward";
-import { FiSun } from "@react-icons/all-files/fi/FiSun";
 
 interface DateFilterProps<T> {
   serchCondition: T;

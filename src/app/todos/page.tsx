@@ -3,7 +3,7 @@ import { deleteData, getData, patchData, postData } from "@/lib/api/httpClient";
 import { useEffect, useState } from "react";
 import DateFilter from "../components/searchFilters/DateFilter";
 import Todo from "./components/Todo";
-import { getCurrentDate } from "@/lib/utils/date";
+import { getCurrentDate, getDayRangeUTC } from "@/lib/utils/date";
 import { TodoType } from "@/types/todoTypes";
 import { IoMdAdd } from "@react-icons/all-files/io/IoMdAdd";
 
@@ -21,8 +21,9 @@ export default function Todos() {
 
   const fetchTodos = async () => {
     let url = "/todos";
-
-    url += `?date=${new Date(serchCondition.date).getTime()}`;
+    const dayRange = getDayRangeUTC(serchCondition.date);
+    url += `?startDate=${dayRange.start}`;
+    url += `&endDate=${dayRange.end}`;
     const res = await getData<TodoType[]>(url);
     setTodos(res);
   };

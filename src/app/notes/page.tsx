@@ -5,7 +5,7 @@ import { getData } from "@/lib/api/httpClient";
 import {
   getCurrentDate,
   formatUTCDateToLocal,
-  convertLocalDateToUTC,
+  getDayRangeUTC,
 } from "@/lib/utils/date";
 import TextFilter from "../components/searchFilters/TextFilter";
 import { useRouter } from "next/navigation";
@@ -40,7 +40,11 @@ export default function Notes() {
 
   const fetchNotes = async () => {
     let url = "/notes";
-    url += `?date=${new Date(serchCondition.date).getTime()}`;
+
+    // 현재 타임존 기준으로 선택된 날짜의 시작일과 종료일을 UTC로 변환
+    const dayRange = getDayRangeUTC(serchCondition.date);
+    url += `?startDate=${dayRange.start}`;
+    url += `&endDate=${dayRange.end}`;
     url += `&title=${serchCondition.title}`;
     const res = await getData<Note[]>(url);
     setNotes(res);
