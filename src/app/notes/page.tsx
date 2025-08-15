@@ -10,7 +10,7 @@ import {
 import TextFilter from "../components/searchFilters/TextFilter";
 import { useRouter } from "next/navigation";
 
-import { IoMdAdd } from "@react-icons/all-files/io/IoMdAdd";
+import { IoMdAdd } from "react-icons/io";
 
 interface SearchCondition {
   date: string;

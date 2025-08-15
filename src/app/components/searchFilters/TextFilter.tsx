@@ -1,5 +1,5 @@
 "use client";
-import { HiOutlineSearch } from "@react-icons/all-files/hi/HiOutlineSearch";
+import { HiOutlineSearch } from "react-icons/hi";
 
 interface TextFilterProps<T> {
   filterKey: keyof T;

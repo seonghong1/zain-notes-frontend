@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IoMdArrowBack } from "@react-icons/all-files/io/IoMdArrowBack";
+import { IoMdArrowBack } from "react-icons/io";
 
 export default function BackButton() {
   const router = useRouter();

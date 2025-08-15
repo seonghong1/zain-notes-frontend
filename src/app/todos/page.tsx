@@ -5,7 +5,7 @@ import DateFilter from "../components/searchFilters/DateFilter";
 import Todo from "./components/Todo";
 import { getCurrentDate, getDayRangeUTC } from "@/lib/utils/date";
 import { TodoType } from "@/types/todoTypes";
-import { IoMdAdd } from "@react-icons/all-files/io/IoMdAdd";
+import { IoMdAdd } from "react-icons/io";
 
 interface SearchCondition {
   date: string;

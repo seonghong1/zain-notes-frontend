@@ -2,10 +2,7 @@
 import { useRef, useEffect } from "react";
 import { TodoType } from "@/types/todoTypes";
 
-import { FaCheck } from "@react-icons/all-files/fa/FaCheck";
-import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
-import { FaTrash } from "@react-icons/all-files/fa/FaTrash";
-import { FaSave } from "@react-icons/all-files/fa/FaSave";
+import { FaCheck, FaEdit, FaTrash, FaSave } from "react-icons/fa";
 
 interface TodoProps {
   todo: TodoType;

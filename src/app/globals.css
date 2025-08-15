@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --main: #f5c842;
-  --main-dark: #d2a318;
+  --main: #8b5cf6;
+  --main-dark: #7750d3;
 
   --grey: #808080;
   --grey-dark: #666666;
 
   --black: #000000;
   --white: #ffffff;
+
+  --gradient-start: #8b5cf6;
+  --gradient-end: #ec4899;
 }
 
 @theme inline {
@@ -20,6 +23,9 @@
 
   --color-black: var(--black);
   --color-white: var(--white);
+
+  --color-gradient-start: var(--gradient-start);
+  --color-gradient-end: var(--gradient-end);
 
   --font-sans: var(--font-noto-sans-kr);
   --font-geist-sans: var(--font-geist-sans);
@@ -41,4 +47,24 @@ input:not([readonly]):focus-within {
   outline-color: var(--main);
   outline-width: 1px;
   outline-style: solid;
+}
+
+@keyframes opacity-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce-up-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }

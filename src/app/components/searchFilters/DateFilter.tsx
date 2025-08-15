@@ -3,8 +3,8 @@
 import { useState, useCallback } from "react";
 import { getCurrentDate, getPreviousDate, getNextDate } from "@/lib/utils/date";
 
-import { IoCaretBack } from "@react-icons/all-files/io5/IoCaretBack";
-import { IoCaretForward } from "@react-icons/all-files/io5/IoCaretForward";
+import { IoCaretBack } from "react-icons/io5";
+import { IoCaretForward } from "react-icons/io5";
 
 interface DateFilterProps<T> {
   serchCondition: T;

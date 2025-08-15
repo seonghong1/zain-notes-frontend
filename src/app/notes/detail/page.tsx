@@ -5,9 +5,9 @@ import { Suspense, useEffect, useState, useCallback, useMemo } from "react";
 import { deleteData, getData, patchData, postData } from "@/lib/api/httpClient";
 import { useRouter } from "next/navigation";
 
-import { FaEdit } from "@react-icons/all-files/fa/FaEdit";
-import { FaTrash } from "@react-icons/all-files/fa/FaTrash";
-import { FaSave } from "@react-icons/all-files/fa/FaSave";
+import AIAssistantButton from "@/app/components/buttons/AIAssistantButton";
+
+import { FaEdit, FaTrash, FaSave } from "react-icons/fa";
 
 function NotesDetailContent() {
   const router = useRouter();
@@ -93,8 +93,27 @@ function NotesDetailContent() {
     setNote({ ...note, content: e.target.value });
   };
 
+  const handleAIAssistant: () => Promise<string> = async () => {
+    try {
+      const url = `/notes/${note?.id}/ai-process`;
+      const res: string = await getData<string>(url);
+      return res || "";
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
   return (
-    <div className="flex h-full w-full flex-col items-center gap-2">
+    <div className="relative flex h-full w-full flex-col items-center gap-2">
+      {note?.id && (
+        <div className="absolute right-0 bottom-0 z-10">
+          <AIAssistantButton
+            onAction={handleAIAssistant}
+            label="정리, 요약하기"
+          />
+        </div>
+      )}
       <input
         className={`w-3/4 cursor-default p-2 text-2xl outline-none ${
           note?.isEditing
