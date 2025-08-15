@@ -22,7 +22,7 @@ export default function BackButton() {
 
   return (
     <button
-      className="bg-main absolute top-5 left-5 cursor-pointer rounded-md p-1 text-3xl text-white opacity-70 hover:opacity-100"
+      className="bg-main absolute top-2 left-2 cursor-pointer rounded-md p-2 text-xl text-white opacity-70 hover:opacity-100 md:top-5 md:left-5 md:p-1 md:text-3xl"
       onClick={goToBack}
     >
       <IoMdArrowBack />
