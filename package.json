@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nestjs/mapped-types": "*",
     "axios": "^1.11.0",
+    "jotai": "^2.13.1",
     "next": "15.4.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",

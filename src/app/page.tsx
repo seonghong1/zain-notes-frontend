@@ -11,13 +11,13 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-4">
       <button
-        className="bg-main text-white p-2 rounded-md cursor-pointer hover:bg-main-dark"
+        className="bg-main hover:bg-main-dark cursor-pointer rounded-md p-2 text-white"
         onClick={() => navigate("/notes")}
       >
         Notes
       </button>
       <button
-        className="bg-main text-white p-2 rounded-md cursor-pointer hover:bg-main-dark"
+        className="bg-main hover:bg-main-dark cursor-pointer rounded-md p-2 text-white"
         onClick={() => navigate("/todos")}
       >
         Todos

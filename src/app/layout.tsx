@@ -4,6 +4,7 @@ import Head from "./head";
 import { Geist } from "next/font/google";
 import { Noto_Sans_KR } from "next/font/google";
 import ClientLayout from "./components/ClientLayout";
+import { Provider } from "jotai";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,12 +26,14 @@ export default function RootLayout({
     <html lang="ko">
       <Head />
       <body
-        className={`${notoSansKR.variable} ${geistSans.variable} flex h-screen w-screen items-center justify-center antialiased`}
+        className={`${notoSansKR.variable} ${geistSans.variable} flex h-screen w-screen items-center justify-center overflow-hidden antialiased`}
       >
-        <div className="relative h-[70%] w-[90%] rounded-lg bg-white px-2 py-4 md:h-[70%] md:w-[70%] md:p-10">
-          <ClientLayout />
-          {children}
-        </div>
+        <Provider>
+          <div className="relative h-[70%] w-[90%] rounded-lg bg-white px-2 py-4 md:h-[70%] md:w-[70%] md:p-10">
+            <ClientLayout />
+            {children}
+          </div>
+        </Provider>
       </body>
     </html>
   );
