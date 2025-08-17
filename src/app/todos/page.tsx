@@ -6,6 +6,7 @@ import Todo from "./components/Todo";
 import { getCurrentDate, getDayRangeUTC } from "@/lib/utils/date";
 import { TodoType } from "@/types/todoTypes";
 import { IoMdAdd } from "react-icons/io";
+import { EmptyContent } from "../components/EmptyContent";
 
 interface SearchCondition {
   date: string;
@@ -132,18 +133,20 @@ export default function Todos() {
           />
         </div>
         <div className="flex h-full w-full flex-col gap-3">
-          {todos.map((todo) => (
-            <Todo
-              key={`${todo.id}-${todo.userId || "new"}`}
-              todo={todo}
-              onSetContent={handleSetContent}
-              onEdit={handleEdit}
-              onUpdate={handleUpdate}
-              onDone={handleDone}
-              onDelete={handleDelete}
-              isNewTodo={todo.id === newTodoId}
-            />
-          ))}
+          {todos.length === 0 && <EmptyContent message="내용이 없습니다." />}
+          {todos.length > 0 &&
+            todos.map((todo) => (
+              <Todo
+                key={`${todo.id}-${todo.userId || "new"}`}
+                todo={todo}
+                onSetContent={handleSetContent}
+                onEdit={handleEdit}
+                onUpdate={handleUpdate}
+                onDone={handleDone}
+                onDelete={handleDelete}
+                isNewTodo={todo.id === newTodoId}
+              />
+            ))}
         </div>
       </div>
     </>

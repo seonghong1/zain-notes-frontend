@@ -11,6 +11,7 @@ import TextFilter from "../components/searchFilters/TextFilter";
 import { useRouter } from "next/navigation";
 
 import { IoMdAdd } from "react-icons/io";
+import { EmptyContent } from "../components/EmptyContent";
 
 interface SearchCondition {
   date: string;
@@ -99,19 +100,23 @@ export default function Notes() {
           />
         </div>
         <div className="flex w-full flex-col gap-3">
-          {filteredNotes.map((note) => (
-            <div
-              key={note.id}
-              onClick={() => goToDetail(note.id)}
-              className="cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-gray-200"
-            >
-              <div className="text-lg font-bold">{note.title}</div>
-              <div className="text-s text-gray-600">{note.content}</div>
-              <div className="text-xs text-gray-400">
-                {formatUTCDateToLocal(note.createdAt ?? "")}
+          {filteredNotes.length === 0 && (
+            <EmptyContent message="내용이 없습니다." />
+          )}
+          {filteredNotes.length > 0 &&
+            filteredNotes.map((note) => (
+              <div
+                key={note.id}
+                onClick={() => goToDetail(note.id)}
+                className="cursor-pointer rounded-md bg-gray-100 p-2 hover:bg-gray-200"
+              >
+                <div className="text-lg font-bold">{note.title}</div>
+                <div className="text-s text-gray-600">{note.content}</div>
+                <div className="text-xs text-gray-400">
+                  {formatUTCDateToLocal(note.createdAt ?? "")}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </>
