@@ -23,8 +23,6 @@ export const UserWelcomeBanner = () => {
     return message.replace("${닉네임}", user?.nickname || "");
   };
 
-  console.log("rerender");
-
   // 서버와 클라이언트가 일치하도록 초기값 설정
   if (!mounted) {
     return (

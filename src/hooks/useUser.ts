@@ -9,7 +9,6 @@ export const useUser = () => {
   const fetchUser = async () => {
     if (user) return;
     const res = await getData<User>("/auth/me");
-    console.log(res);
     setUser(res);
   };
 

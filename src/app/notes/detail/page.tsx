@@ -33,7 +33,6 @@ function NotesDetailContent() {
   const fetchNote = useCallback(async () => {
     if (!id) return;
     const res = await getData<NoteType>(`/notes/${id}`);
-    console.log(res);
 
     res.isEditing = false;
     setNote(res);
