@@ -13,9 +13,12 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      alert("로그인 후 이용해주세요.");
       window.location.href = "/auth/signin";
+
+      if (window.location.pathname !== "/auth/signin") {
+        // alert("로그인 후 이용해주세요.");
+      }
     }
     return Promise.reject(error);
-  }
+  },
 );
